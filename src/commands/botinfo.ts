@@ -5,7 +5,7 @@ import { getCPUPercent } from "../functions/getCPUUsage";
 
 export default {
   name: "botinfo",
-  aliases: ["botinformation", "botstats", "info"],
+  aliases: ["botinformation", "botstats", "info", "bi"],
   category: "Info",
   description: "Shows detailed information on the bot.",
   usage: "botinfo",
@@ -25,8 +25,9 @@ export default {
           .setColor(embedColor)
           .setThumbnail(client.user?.displayAvatarURL()!)
           .setDescription(
-            `[Invite Me](https://web.fluxer.app/oauth2/authorize?client_id=1480748794495332454&scope=bot&permissions=2252901406010582) | [Support Server](https://fluxer.gg/YPGwEHAy)`,
+            `[Invite Me](https://web.fluxer.app/oauth2/authorize?client_id=1480748794495332454&scope=bot&permissions=2252901406010582) | [Support Server](https://fluxer.gg/YPGwEHAy) | [Source Code](https://github.com/BrydenIsNotSmart/Fluxious)`,
           )
+          .setFooter({ text: `ID: ${client.user?.id} • Made by Bryden#1776` })
           .addFields(
             {
               name: "CPU",

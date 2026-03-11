@@ -6,6 +6,7 @@ import { Collection } from "@discordjs/collection";
 import type { FluxerClient } from "./types/client";
 import { connectMongo } from "./database/mongo";
 import { dbURL } from "./config";
+import { setupReconnect } from "./functions/reconnect";
 
 const client = new Client({
   intents: 0,
@@ -13,9 +14,11 @@ const client = new Client({
     custom_status: { text: "Watching the Fluxious Network™" },
     status: "online",
   },
+  waitForGuilds: true,
 }) as FluxerClient;
 
 await connectMongo(dbURL!);
+setupReconnect(client);
 
 client.commands = new Collection();
 client.aliases = new Collection();

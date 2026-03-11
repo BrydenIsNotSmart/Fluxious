@@ -9,7 +9,7 @@ export default {
   category: "General",
   description:
     "View a list of commands the bot has, and get a detailed view of a certain command.",
-  usage: "help or help (command name)",
+  usage: "help [command]",
 
   async execute(message: Message, args: string[], client: FluxerClient) {
     const query = args[0]?.toLowerCase();

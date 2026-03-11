@@ -1,11 +1,10 @@
-import { CategoryChannel, EmbedBuilder, type Message } from "@fluxerjs/core";
+import { EmbedBuilder, type Message } from "@fluxerjs/core";
 import type { FluxerClient } from "../types/client";
 import { embedColor } from "../config";
-import { getCPUPercent } from "../functions/getCPUUsage";
 
 export default {
   name: "serverinfo",
-  aliases: ["serverinformation", "serverstats", "server"],
+  aliases: ["serverinformation", "serverstats", "server", "si"],
   category: "Info",
   description: "Shows detailed information on this server.",
   usage: "serverinfo",
@@ -26,7 +25,15 @@ export default {
           .setDescription(
             `[Icon](${serverIcon}) ${message.guild?.banner ? `| [Banner](${message.guild.bannerURL()})` : ""}`,
           )
-          .setFooter({ text: `ID: ${message.guildId}` })
+          .setFooter({
+            text: `ID: ${message.guildId} • Created: ${message.guild?.members
+              .get(message.guild?.ownerId!)
+              ?.joinedAt?.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}`,
+          })
           .addFields(
             {
               name: "Owner",
@@ -45,7 +52,22 @@ export default {
             },
             {
               name: "Categories",
-              value: `${message.guild?.channels.filter((c) => c.type === ("category" as any)).size ?? 0}`,
+              value: `${message.guild?.channels.filter((c) => c.type === 4).size ?? 0}`,
+              inline: true,
+            },
+            {
+              name: "Text Channels",
+              value: `${message.guild?.channels.filter((c) => c.type == 0).size ?? 0}`,
+              inline: true,
+            },
+            {
+              name: "Voice Channels",
+              value: `${message.guild?.channels.filter((c) => c.type == 2).size ?? 0}`,
+              inline: true,
+            },
+            {
+              name: "Features",
+              value: `\`\`\`${message.guild?.features.join(", ")}\`\`\``,
             },
           ),
       ],
