@@ -75,7 +75,7 @@ export default {
         message.reply({
           embeds: [
             new EmbedBuilder().setDescription(
-              `<#${channel.id}> has been selected as the new counting channel.\nYou can toggle the counting module off and on by using \`counting toggle\`\n**You can no longer run commands in this channel, and the bot will act on counting only, and will delete messages if it doens't follow the counting order.\n\nThe counting module is currently **${server?.countingEnabled ? "on" : "off"}**.`,
+              `<#${channel.id}> has been selected as the new counting channel.\nYou can toggle the counting module off and on by using \`counting toggle\`\n**You can no longer run commands in this channel, and the bot will act on counting only, and will delete messages if it doens't follow the counting order.**\n\nThe counting module is currently **${server?.countingEnabled ? "on" : "off"}**.`,
             ),
           ],
         });
