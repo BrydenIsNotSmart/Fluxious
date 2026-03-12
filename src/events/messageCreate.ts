@@ -32,8 +32,10 @@ export default {
         });
       }
 
-      if (message.channel?.id === server.countingChannel && server.collection) {
-        if (!server.countingEnabled) return;
+      if (
+        message.channel?.id === server.countingChannel &&
+        server.countingEnabled
+      ) {
         if (message.author.id === client.user?.id) return;
         if (server.countingMember === message.author.id) {
           if (server.countingReset) {
