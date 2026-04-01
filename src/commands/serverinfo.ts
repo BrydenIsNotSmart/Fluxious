@@ -2,6 +2,12 @@ import { EmbedBuilder, type Message } from "@fluxerjs/core";
 import type { FluxerClient } from "../types/client";
 import { embedColor } from "../config";
 
+function getSnowflakeTimestamp(id: string): Date {
+  const DISCORD_EPOCH = 1420070400000n;
+  const timestamp = (BigInt(id) >> 22n) + DISCORD_EPOCH;
+  return new Date(Number(timestamp));
+}
+
 export default {
   name: "serverinfo",
   aliases: ["serverinformation", "serverstats", "server", "si"],
@@ -16,6 +22,10 @@ export default {
         message.guild?.name ?? "Server",
       )}&backgroundColor=4640d8`;
 
+    const createdAt = getSnowflakeTimestamp(message.guildId!);
+
+    message.guild?.fetchChannels();
+
     message.reply({
       embeds: [
         new EmbedBuilder()
@@ -26,13 +36,14 @@ export default {
             `[Icon](${serverIcon}) ${message.guild?.banner ? `| [Banner](${message.guild.bannerURL()})` : ""}`,
           )
           .setFooter({
-            text: `ID: ${message.guildId} • Created: ${message.guild?.members
-              .get(message.guild?.ownerId!)
-              ?.joinedAt?.toLocaleDateString("en-US", {
+            text: `ID: ${message.guildId} • Created: ${createdAt.toLocaleDateString(
+              "en-US",
+              {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
-              })}`,
+              },
+            )}`,
           })
           .addFields(
             {

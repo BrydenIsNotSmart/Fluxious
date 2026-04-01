@@ -18,7 +18,7 @@ const client = new Client({
 }) as FluxerClient;
 
 await connectMongo(dbURL!);
-setupReconnect(client);
+// setupReconnect(client);
 
 client.commands = new Collection();
 client.aliases = new Collection();
