@@ -24,7 +24,12 @@ export default {
 
     const createdAt = getSnowflakeTimestamp(message.guildId!);
 
+    message.guild?.fetchRoles();
     message.guild?.fetchChannels();
+
+    const members: any = await client.rest.get(
+      `/guilds/${message.guild?.id}/members?limit=1000`,
+    );
 
     message.reply({
       embeds: [
@@ -53,7 +58,7 @@ export default {
             },
             {
               name: "Members",
-              value: `${message.guild?.members.size}`,
+              value: `${members.length}`,
               inline: true,
             },
             {
